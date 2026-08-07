@@ -1,0 +1,1522 @@
+# NoxGuardian - tabla curada de prefijos OUI (offline).
+# Formato: AABBCC,Nombre del fabricante
+#
+# Esta tabla es un SUBCONJUNTO pensado para dispositivos habituales de LAN
+# domestica. NoxGuardian carga ademas, si existen, las bases completas del
+# sistema (/usr/share/nmap/nmap-mac-prefixes, /usr/share/wireshark/manuf),
+# que tienen decenas de miles de entradas y sobreescriben a estas.
+# Para regenerar esta tabla desde la base del sistema: tools/build_oui.py
+#
+# --- Apple ---------------------------------------------------------------
+000393,Apple
+000A27,Apple
+000A95,Apple
+000D93,Apple
+001124,Apple
+001451,Apple
+0016CB,Apple
+0017F2,Apple
+0019E3,Apple
+001B63,Apple
+001CB3,Apple
+001D4F,Apple
+001E52,Apple
+001EC2,Apple
+001F5B,Apple
+001FF3,Apple
+0021E9,Apple
+002241,Apple
+002312,Apple
+002332,Apple
+00236C,Apple
+0023DF,Apple
+002436,Apple
+002500,Apple
+00254B,Apple
+0025BC,Apple
+002608,Apple
+00264A,Apple
+0026B0,Apple
+0026BB,Apple
+003EE1,Apple
+0050E4,Apple
+0056CD,Apple
+006171,Apple
+008865,Apple
+00C610,Apple
+00DB70,Apple
+00F4B9,Apple
+00F76F,Apple
+040CCE,Apple
+041552,Apple
+041E64,Apple
+042665,Apple
+04489A,Apple
+044BED,Apple
+0452F3,Apple
+045453,Apple
+0469F8,Apple
+04D3CF,Apple
+04DB56,Apple
+04E536,Apple
+04F13E,Apple
+04F7E4,Apple
+086698,Apple
+086D41,Apple
+087045,Apple
+0C1539,Apple
+0C3021,Apple
+0C3E9F,Apple
+0C4DE9,Apple
+0C5101,Apple
+0C74C2,Apple
+0C771A,Apple
+0CBC9F,Apple
+0CD746,Apple
+101C0C,Apple
+1040F3,Apple
+10417F,Apple
+1093E9,Apple
+109ADD,Apple
+10DDB1,Apple
+14109F,Apple
+145A05,Apple
+148FC6,Apple
+1499E2,Apple
+14BD61,Apple
+182032,Apple
+183451,Apple
+186590,Apple
+189EFC,Apple
+18AF61,Apple
+18AF8F,Apple
+18E7F4,Apple
+18EE69,Apple
+1C1AC0,Apple
+1C36BB,Apple
+1C5CF2,Apple
+1C9148,Apple
+1C9E46,Apple
+1CABA7,Apple
+1CE62B,Apple
+203CAE,Apple
+2078F0,Apple
+207D74,Apple
+209BCD,Apple
+20A2E4,Apple
+20AB37,Apple
+20C9D0,Apple
+241EEB,Apple
+24240E,Apple
+245BA7,Apple
+24A074,Apple
+24A2E1,Apple
+24AB81,Apple
+24E314,Apple
+24F094,Apple
+24F677,Apple
+280B5C,Apple
+283737,Apple
+285AEB,Apple
+286AB8,Apple
+286ABA,Apple
+28CFDA,Apple
+28CFE9,Apple
+28E02C,Apple
+28E14C,Apple
+28E7CF,Apple
+28F076,Apple
+2C1F23,Apple
+2C200B,Apple
+2C3361,Apple
+2CB43A,Apple
+2CBE08,Apple
+2CF0A2,Apple
+2CF0EE,Apple
+3010E4,Apple
+3035AD,Apple
+30636B,Apple
+3090AB,Apple
+30F7C5,Apple
+3408BC,Apple
+341298,Apple
+34159E,Apple
+34363B,Apple
+3451C9,Apple
+34A395,Apple
+34AB37,Apple
+34C059,Apple
+34E2FD,Apple
+380F4A,Apple
+38484C,Apple
+3866F0,Apple
+3871DE,Apple
+38B54D,Apple
+38C986,Apple
+38CADA,Apple
+3C0754,Apple
+3C15C2,Apple
+3C2EF9,Apple
+3CAB8E,Apple
+3CD0F8,Apple
+3CE072,Apple
+403004,Apple
+40331A,Apple
+403CFC,Apple
+404D7F,Apple
+406C8F,Apple
+40A6D9,Apple
+40B395,Apple
+40D32D,Apple
+440010,Apple
+442A60,Apple
+444C0C,Apple
+44D884,Apple
+44FB42,Apple
+48437C,Apple
+4860BC,Apple
+48746E,Apple
+48A195,Apple
+48BF6B,Apple
+48D705,Apple
+4C3275,Apple
+4C57CA,Apple
+4C74BF,Apple
+4C7C5F,Apple
+4C8D79,Apple
+4CB199,Apple
+503237,Apple
+507A55,Apple
+5082D5,Apple
+50BC96,Apple
+50DE06,Apple
+50EAD6,Apple
+542696,Apple
+5433CB,Apple
+544E90,Apple
+54724F,Apple
+54AE27,Apple
+54E43A,Apple
+581FAA,Apple
+58404E,Apple
+5855CA,Apple
+587F57,Apple
+58B035,Apple
+5C1DD9,Apple
+5C5948,Apple
+5C8D4E,Apple
+5C95AE,Apple
+5C969D,Apple
+5C97F3,Apple
+5CF5DA,Apple
+5CF7E6,Apple
+5CF938,Apple
+600308,Apple
+60334B,Apple
+606944,Apple
+608B0E,Apple
+609217,Apple
+609AC1,Apple
+60C547,Apple
+60D9C7,Apple
+60F445,Apple
+60F81D,Apple
+60FACD,Apple
+60FB42,Apple
+60FEC5,Apple
+64200C,Apple
+6476BA,Apple
+649ABE,Apple
+64A3CB,Apple
+64A5C3,Apple
+64B0A6,Apple
+64B9E8,Apple
+64E682,Apple
+680927,Apple
+685B35,Apple
+68644B,Apple
+68967B,Apple
+689C70,Apple
+68A86D,Apple
+68AB1E,Apple
+68AE20,Apple
+68D93C,Apple
+68DBCA,Apple
+68FB7E,Apple
+6C19C0,Apple
+6C3E6D,Apple
+6C4008,Apple
+6C709F,Apple
+6C72E7,Apple
+6C8DC1,Apple
+6C94F8,Apple
+6C96CF,Apple
+6CAB31,Apple
+6CC26B,Apple
+701124,Apple
+7014A6,Apple
+703EAC,Apple
+70480F,Apple
+705681,Apple
+7073CB,Apple
+7081EB,Apple
+70A2B3,Apple
+70CD60,Apple
+70DEE2,Apple
+70ECE4,Apple
+70F087,Apple
+741BB2,Apple
+748D08,Apple
+748F3C,Apple
+749EAF,Apple
+74E1B6,Apple
+74E2F5,Apple
+7831C1,Apple
+78321B,Apple
+783A84,Apple
+784F43,Apple
+786C1C,Apple
+787B8A,Apple
+78886D,Apple
+789F70,Apple
+78A3E4,Apple
+78CA39,Apple
+78D75F,Apple
+78FD94,Apple
+7C0191,Apple
+7C04D0,Apple
+7C11BE,Apple
+7C5049,Apple
+7C6D62,Apple
+7C6DF8,Apple
+7CC3A1,Apple
+7CC537,Apple
+7CD1C3,Apple
+7CF05F,Apple
+7CFADF,Apple
+80006E,Apple
+804971,Apple
+80929F,Apple
+80BE05,Apple
+80D605,Apple
+80E650,Apple
+80EA96,Apple
+80ED2C,Apple
+842999,Apple
+843835,Apple
+844167,Apple
+84788B,Apple
+848506,Apple
+8489AD,Apple
+848E0C,Apple
+84A134,Apple
+84B153,Apple
+84FCAC,Apple
+84FCFE,Apple
+881908,Apple
+881FA1,Apple
+885395,Apple
+8863DF,Apple
+8866A5,Apple
+88C663,Apple
+88CB87,Apple
+88E87F,Apple
+8C006D,Apple
+8C2DAA,Apple
+8C5877,Apple
+8C7B9D,Apple
+8C7C92,Apple
+8C8EF2,Apple
+8C8FE9,Apple
+8CFABA,Apple
+9027E4,Apple
+903C92,Apple
+9060F1,Apple
+907240,Apple
+90840D,Apple
+908D6C,Apple
+90B0ED,Apple
+90B21F,Apple
+90C1C6,Apple
+90FD61,Apple
+949426,Apple
+94BF2D,Apple
+94E96A,Apple
+94F6A3,Apple
+9801A7,Apple
+9803D8,Apple
+985AEB,Apple
+989E63,Apple
+98B8E3,Apple
+98D6BB,Apple
+98E0D9,Apple
+98F0AB,Apple
+98FE94,Apple
+9C04EB,Apple
+9C207B,Apple
+9C293F,Apple
+9C35EB,Apple
+9C4FDA,Apple
+9C84BF,Apple
+9C8BA0,Apple
+9CE65E,Apple
+9CF387,Apple
+9CF48E,Apple
+A01828,Apple
+A03BE3,Apple
+A056F3,Apple
+A0999B,Apple
+A0D795,Apple
+A0EDCD,Apple
+A45E60,Apple
+A46706,Apple
+A4B197,Apple
+A4B805,Apple
+A4C361,Apple
+A4D18C,Apple
+A4D1D2,Apple
+A4D931,Apple
+A4F1E8,Apple
+A82066,Apple
+A85B78,Apple
+A85C2C,Apple
+A8667F,Apple
+A886DD,Apple
+A88E24,Apple
+A8968A,Apple
+A8BBCF,Apple
+A8FAD8,Apple
+AC1F74,Apple
+AC293A,Apple
+AC3C0B,Apple
+AC61EA,Apple
+AC7F3E,Apple
+AC87A3,Apple
+ACBC32,Apple
+ACCF5C,Apple
+ACE4B5,Apple
+ACFDEC,Apple
+B019C6,Apple
+B03495,Apple
+B065BD,Apple
+B09FBA,Apple
+B0CA68,Apple
+B418D1,Apple
+B4F0AB,Apple
+B4F61C,Apple
+B8098A,Apple
+B817C2,Apple
+B841A4,Apple
+B844D9,Apple
+B853AC,Apple
+B85D0A,Apple
+B8634D,Apple
+B8782E,Apple
+B88D12,Apple
+B8C111,Apple
+B8C75D,Apple
+B8E856,Apple
+B8F6B1,Apple
+B8FF61,Apple
+BC3BAF,Apple
+BC4CC4,Apple
+BC52B7,Apple
+BC5436,Apple
+BC6778,Apple
+BC6C21,Apple
+BC926B,Apple
+BC9FEF,Apple
+BCA920,Apple
+BCEC5D,Apple
+C01ADA,Apple
+C06394,Apple
+C0847A,Apple
+C09F42,Apple
+C0A53E,Apple
+C0CCF8,Apple
+C0CECD,Apple
+C0D012,Apple
+C0F2FB,Apple
+C42C03,Apple
+C49880,Apple
+C4B301,Apple
+C81EE7,Apple
+C82A14,Apple
+C8334B,Apple
+C83C85,Apple
+C869CD,Apple
+C86F1D,Apple
+C88550,Apple
+C8B5B7,Apple
+C8BCC8,Apple
+C8D083,Apple
+C8E0EB,Apple
+C8F650,Apple
+CC088D,Apple
+CC08E0,Apple
+CC20E8,Apple
+CC25EF,Apple
+CC29F5,Apple
+CC4463,Apple
+CC785F,Apple
+CCC760,Apple
+D0034B,Apple
+D023DB,Apple
+D02598,Apple
+D03311,Apple
+D04F7E,Apple
+D0817A,Apple
+D0A637,Apple
+D0C5F3,Apple
+D0E140,Apple
+D4619D,Apple
+D49A20,Apple
+D4A33D,Apple
+D4DCCD,Apple
+D4F46F,Apple
+D8004D,Apple
+D81D72,Apple
+D83062,Apple
+D89695,Apple
+D89E3F,Apple
+D8A25E,Apple
+D8BB2C,Apple
+D8CF9C,Apple
+D8D1CB,Apple
+DC0C5C,Apple
+DC2B2A,Apple
+DC2B61,Apple
+DC3714,Apple
+DC415F,Apple
+DC56E7,Apple
+DC86D8,Apple
+DC9B9C,Apple
+DCA4CA,Apple
+DCA904,Apple
+DCB54F,Apple
+E0338E,Apple
+E05F45,Apple
+E06678,Apple
+E0ACCB,Apple
+E0B52D,Apple
+E0B9BA,Apple
+E0C767,Apple
+E0C97A,Apple
+E0F5C6,Apple
+E0F847,Apple
+E425E7,Apple
+E42B34,Apple
+E48B7F,Apple
+E49A79,Apple
+E4C63D,Apple
+E4CE8F,Apple
+E8040B,Apple
+E80688,Apple
+E8802E,Apple
+E88D28,Apple
+E8B2AC,Apple
+EC3586,Apple
+EC852F,Apple
+ECADB8,Apple
+F01898,Apple
+F02475,Apple
+F07960,Apple
+F099BF,Apple
+F0B0E7,Apple
+F0B3EC,Apple
+F0C1F1,Apple
+F0D1A9,Apple
+F0DBE2,Apple
+F0DBF8,Apple
+F0DCE2,Apple
+F0F61C,Apple
+F40F24,Apple
+F41BA1,Apple
+F431C3,Apple
+F437B7,Apple
+F45C89,Apple
+F4F15A,Apple
+F4F951,Apple
+F80377,Apple
+F81EDF,Apple
+F82793,Apple
+F83880,Apple
+F84D89,Apple
+F86214,Apple
+F86FC1,Apple
+F895C7,Apple
+FC253F,Apple
+FCD848,Apple
+FCE998,Apple
+FCFC48,Apple
+#
+# --- Samsung -------------------------------------------------------------
+0000F0,Samsung Electronics
+000DAE,Samsung Electronics
+0012FB,Samsung Electronics
+001377,Samsung Electronics
+0015B9,Samsung Electronics
+001632,Samsung Electronics
+0017C9,Samsung Electronics
+0017D5,Samsung Electronics
+001A8A,Samsung Electronics
+001B98,Samsung Electronics
+001C43,Samsung Electronics
+001D25,Samsung Electronics
+001DF6,Samsung Electronics
+001E7D,Samsung Electronics
+001EE1,Samsung Electronics
+001FCC,Samsung Electronics
+001FCD,Samsung Electronics
+002119,Samsung Electronics
+0021D1,Samsung Electronics
+0021D2,Samsung Electronics
+002339,Samsung Electronics
+00233A,Samsung Electronics
+002399,Samsung Electronics
+0024E9,Samsung Electronics
+002566,Samsung Electronics
+002637,Samsung Electronics
+00265D,Samsung Electronics
+002719,Samsung Electronics
+0808C2,Samsung Electronics
+083D88,Samsung Electronics
+0865E9,Samsung Electronics
+08D42B,Samsung Electronics
+08ECA9,Samsung Electronics
+0C1420,Samsung Electronics
+0C715D,Samsung Electronics
+0C8910,Samsung Electronics
+0CB319,Samsung Electronics
+0CDFA4,Samsung Electronics
+101DC0,Samsung Electronics
+103047,Samsung Electronics
+1077B1,Samsung Electronics
+10D38A,Samsung Electronics
+141F78,Samsung Electronics
+142D27,Samsung Electronics
+1449E0,Samsung Electronics
+14568E,Samsung Electronics
+14899A,Samsung Electronics
+149FE8,Samsung Electronics
+1816C9,Samsung Electronics
+181EB0,Samsung Electronics
+182195,Samsung Electronics
+1831BF,Samsung Electronics
+1839C4,Samsung Electronics
+189733,Samsung Electronics
+18E2C2,Samsung Electronics
+1C232C,Samsung Electronics
+1C5A3E,Samsung Electronics
+1C62B8,Samsung Electronics
+1C66AA,Samsung Electronics
+1CAF05,Samsung Electronics
+20134B,Samsung Electronics
+202D07,Samsung Electronics
+206E9C,Samsung Electronics
+20D390,Samsung Electronics
+2013E0,Samsung Electronics
+2454CF,Samsung Electronics
+24C696,Samsung Electronics
+24DBED,Samsung Electronics
+24F5AA,Samsung Electronics
+283157,Samsung Electronics
+2827BF,Samsung Electronics
+28395E,Samsung Electronics
+288335,Samsung Electronics
+28987B,Samsung Electronics
+28BAB5,Samsung Electronics
+2C4401,Samsung Electronics
+2CAE2B,Samsung Electronics
+30197B,Samsung Electronics
+3096FB,Samsung Electronics
+30CBF8,Samsung Electronics
+30CDA7,Samsung Electronics
+34145F,Samsung Electronics
+342387,Samsung Electronics
+34AA8B,Samsung Electronics
+34BE00,Samsung Electronics
+34C3AC,Samsung Electronics
+38010B,Samsung Electronics
+380195,Samsung Electronics
+380A94,Samsung Electronics
+38AA3C,Samsung Electronics
+38ECE4,Samsung Electronics
+3C0518,Samsung Electronics
+3C5A37,Samsung Electronics
+3C8BFE,Samsung Electronics
+3CA10D,Samsung Electronics
+40163B,Samsung Electronics
+44783E,Samsung Electronics
+4C3C16,Samsung Electronics
+4CA56D,Samsung Electronics
+4CBCA5,Samsung Electronics
+50019D,Samsung Electronics
+5001BB,Samsung Electronics
+50CCF8,Samsung Electronics
+50F520,Samsung Electronics
+5492BE,Samsung Electronics
+549B12,Samsung Electronics
+5C0A5B,Samsung Electronics
+5C2E59,Samsung Electronics
+5C497D,Samsung Electronics
+5CE8EB,Samsung Electronics
+6021C0,Samsung Electronics
+60A10A,Samsung Electronics
+60AF6D,Samsung Electronics
+60D0A9,Samsung Electronics
+64B310,Samsung Electronics
+680571,Samsung Electronics
+6819AE,Samsung Electronics
+6C2F2C,Samsung Electronics
+6C8336,Samsung Electronics
+70288B,Samsung Electronics
+70F927,Samsung Electronics
+78009E,Samsung Electronics
+781FDB,Samsung Electronics
+784B87,Samsung Electronics
+78A873,Samsung Electronics
+78ABBB,Samsung Electronics
+78BDBC,Samsung Electronics
+78C3E9,Samsung Electronics
+7CF854,Samsung Electronics
+8018A7,Samsung Electronics
+8425DB,Samsung Electronics
+845181,Samsung Electronics
+8455A5,Samsung Electronics
+84A466,Samsung Electronics
+8863A2,Samsung Electronics
+8C1ABF,Samsung Electronics
+8C71F8,Samsung Electronics
+8CC8CD,Samsung Electronics
+9000DB,Samsung Electronics
+9401C2,Samsung Electronics
+9463D1,Samsung Electronics
+948BC1,Samsung Electronics
+9852B1,Samsung Electronics
+9C0298,Samsung Electronics
+9C3AAF,Samsung Electronics
+9C65B0,Samsung Electronics
+9CE6E7,Samsung Electronics
+A00798,Samsung Electronics
+A02195,Samsung Electronics
+A08D16,Samsung Electronics
+A0821F,Samsung Electronics
+A48431,Samsung Electronics
+A49A58,Samsung Electronics
+A80600,Samsung Electronics
+A87C01,Samsung Electronics
+AC5A14,Samsung Electronics
+ACC33A,Samsung Electronics
+B0C4E7,Samsung Electronics
+B0DF3A,Samsung Electronics
+B47443,Samsung Electronics
+B4EF39,Samsung Electronics
+B857D8,Samsung Electronics
+BC1485,Samsung Electronics
+BC2027,Samsung Electronics
+BC4486,Samsung Electronics
+BC8CCD,Samsung Electronics
+BCB1F3,Samsung Electronics
+C01173,Samsung Electronics
+C06599,Samsung Electronics
+C819F7,Samsung Electronics
+C87E75,Samsung Electronics
+CC07AB,Samsung Electronics
+CC3A61,Samsung Electronics
+CCF9E8,Samsung Electronics
+D0176A,Samsung Electronics
+D0224C,Samsung Electronics
+D0667B,Samsung Electronics
+D0DFC7,Samsung Electronics
+D487D8,Samsung Electronics
+D4E8B2,Samsung Electronics
+D831CF,Samsung Electronics
+D890E8,Samsung Electronics
+DC6672,Samsung Electronics
+E09971,Samsung Electronics
+E4121D,Samsung Electronics
+E432CB,Samsung Electronics
+E458B8,Samsung Electronics
+E45D75,Samsung Electronics
+E4B021,Samsung Electronics
+E8039A,Samsung Electronics
+E8508B,Samsung Electronics
+E89309,Samsung Electronics
+EC1F72,Samsung Electronics
+ECE09B,Samsung Electronics
+F008F1,Samsung Electronics
+F05A09,Samsung Electronics
+F0728C,Samsung Electronics
+F409D8,Samsung Electronics
+F42981,Samsung Electronics
+F47B5E,Samsung Electronics
+F8042E,Samsung Electronics
+F877B8,Samsung Electronics
+FC0012,Samsung Electronics
+FCA13E,Samsung Electronics
+FCC734,Samsung Electronics
+#
+# --- Xiaomi / Redmi / Huami ----------------------------------------------
+0C1DAF,Xiaomi
+102AB3,Xiaomi
+141FBA,Xiaomi
+185936,Xiaomi
+20A783,Xiaomi
+2456A1,Xiaomi
+286C07,Xiaomi
+28E31F,Xiaomi
+2CB0DF,Xiaomi
+34808E,Xiaomi
+34CE00,Xiaomi
+3872C0,Xiaomi
+3CBD3E,Xiaomi
+4C495A,Xiaomi
+4CC0EA,Xiaomi
+50647E,Xiaomi
+50B7C3,Xiaomi
+5443B2,Xiaomi
+584498,Xiaomi
+5C025E,Xiaomi
+6055F9,Xiaomi
+64095A,Xiaomi
+64B473,Xiaomi
+64CC2E,Xiaomi
+68DFDD,Xiaomi
+742344,Xiaomi
+74234F,Xiaomi
+745F00,Xiaomi
+7802F8,Xiaomi
+7811DC,Xiaomi
+786A89,Xiaomi
+7C1DD9,Xiaomi
+8CBEBE,Xiaomi
+8CFDF0,Xiaomi
+94E1AC,Xiaomi
+98FAE3,Xiaomi
+9C99A0,Xiaomi
+A086C6,Xiaomi
+A45046,Xiaomi
+A4C138,Telink (Xiaomi/Tuya BLE)
+A85E45,Xiaomi
+ACC1EE,Xiaomi
+ACF7F3,Xiaomi
+B0E235,Xiaomi
+C40BCB,Xiaomi
+C46699,Xiaomi
+C4F6D7,Xiaomi
+CC4B73,Xiaomi
+D4970B,Xiaomi
+D8CD73,Xiaomi
+E4467B,Xiaomi
+E85A8B,Xiaomi
+EC41A8,Xiaomi
+F0B429,Xiaomi
+F48B32,Xiaomi
+F8A45F,Xiaomi
+FC64BA,Xiaomi
+#
+# --- Espressif (ESP8266 / ESP32 - IoT casero) ----------------------------
+0C8B95,Espressif
+10521C,Espressif
+18FE34,Espressif
+24006A,Espressif
+240AC4,Espressif
+2462AB,Espressif
+2C3AE8,Espressif
+2CF432,Espressif
+30AEA4,Espressif
+3C6105,Espressif
+3C71BF,Espressif
+403F8C,Espressif
+483FDA,Espressif
+4C11AE,Espressif
+4C7525,Espressif
+500291,Espressif
+545AA6,Espressif
+600194,Espressif
+68C63A,Espressif
+7C9EBD,Espressif
+7CDFA1,Espressif
+80646F,Espressif
+807D3A,Espressif
+8CAAB5,Espressif
+90380C,Espressif
+942B2C,Espressif
+9C9C1F,Espressif
+A020A6,Espressif
+A4CF12,Espressif
+A4E57C,Espressif
+AC0BFB,Espressif
+B4E62D,Espressif
+BCDDC2,Espressif
+C44F33,Espressif
+C45BBE,Espressif
+C82B96,Espressif
+CC50E3,Espressif
+D8A01D,Espressif
+D8BFC0,Espressif
+DC4F22,Espressif
+E09806,Espressif
+E8DB84,Espressif
+EC64C9,Espressif
+EC94CB,Espressif
+F008D1,Espressif
+F4CFA2,Espressif
+FCF5C4,Espressif
+#
+# --- TP-Link / Tapo / Kasa -----------------------------------------------
+000AEB,TP-Link
+001478,TP-Link
+002127,TP-Link
+0C8063,TP-Link
+14CC20,TP-Link
+14CF92,TP-Link
+1C3BF3,TP-Link
+1CFA68,TP-Link
+30B5C2,TP-Link
+3460F9,TP-Link
+3C4665,TP-Link
+3C8433,TP-Link
+50C7BF,TP-Link
+5C899A,TP-Link
+5CE931,TP-Link
+6466B3,TP-Link
+6C5AB0,TP-Link
+749781,TP-Link
+788CB5,TP-Link
+7CB59B,TP-Link
+84D81B,TP-Link
+9C5322,TP-Link
+9CA2F4,TP-Link
+A042A4,TP-Link
+A0F3C1,TP-Link
+AC15A2,TP-Link
+AC84C6,TP-Link
+B0487A,TP-Link
+B04E26,TP-Link
+B0958E,TP-Link
+BCE63F,TP-Link
+C006C3,TP-Link
+C0250C,TP-Link
+C46E1F,TP-Link
+CC32E5,TP-Link
+D80D17,TP-Link
+E4FAC4,TP-Link
+E894F6,TP-Link
+EC086B,TP-Link
+F0A731,TP-Link
+F4EC38,TP-Link
+F81A67,TP-Link
+FCD733,TP-Link
+#
+# --- Google / Nest / Chromecast ------------------------------------------
+000C43,Google
+0C8DDB,Google
+1027F5,Google
+1844F0,Google
+20DFB9,Google
+286FB9,Google
+3097D8,Google
+30FD38,Google
+383B26,Google
+3C286D,Google
+440444,Google
+483B38,Google
+54600A,Google
+5CE0C5,Google
+6C6D6B,Google
+7466CC,Google
+7C2EBD,Google
+94EB2C,Google
+98D293,Google
+A47733,Google
+A4778A,Google
+D86C63,Google
+DAA119,Google
+E4F042,Google
+F038E7,Google
+F44E38,Google
+F4F5D8,Google
+F4F5E8,Google
+FA8FCA,Google
+#
+# --- Amazon (Echo, Fire TV, Kindle) --------------------------------------
+0C47C9,Amazon Technologies
+100E7E,Amazon Technologies
+1848BE,Amazon Technologies
+34D270,Amazon Technologies
+38F73D,Amazon Technologies
+40B4CD,Amazon Technologies
+44650D,Amazon Technologies
+4CEFC0,Amazon Technologies
+50DCE7,Amazon Technologies
+50F5DA,Amazon Technologies
+6837E9,Amazon Technologies
+68DBF5,Amazon Technologies
+6C5697,Amazon Technologies
+74C246,Amazon Technologies
+747548,Amazon Technologies
+7C6166,Amazon Technologies
+84D6D0,Amazon Technologies
+88712B,Amazon Technologies
+A002DC,Amazon Technologies
+AC63BE,Amazon Technologies
+B0FC0D,Amazon Technologies
+CC9EA2,Amazon Technologies
+F02F9E,Amazon Technologies
+F0272D,Amazon Technologies
+FC65DE,Amazon Technologies
+FCA183,Amazon Technologies
+#
+# --- Raspberry Pi --------------------------------------------------------
+B827EB,Raspberry Pi Foundation
+DCA632,Raspberry Pi Trading
+E45F01,Raspberry Pi Trading
+D83ADD,Raspberry Pi Trading
+28CDC1,Raspberry Pi Trading
+2CCF67,Raspberry Pi Trading
+88A29E,Raspberry Pi Trading
+#
+# --- Intel / redes cableadas y WiFi de portatiles -------------------------
+001111,Intel
+0013CE,Intel
+001517,Intel
+0016EA,Intel
+0019D1,Intel
+001B21,Intel
+001CC0,Intel
+001E64,Intel
+001E67,Intel
+001F3B,Intel
+00215D,Intel
+002314,Intel
+0024D6,Intel
+002710,Intel
+0050F1,Intel
+34029B,Intel
+344B50,Intel
+34DE1A,Intel
+3C9509,Intel
+3CA9F4,Intel
+485AB6,Intel
+4C0289,Intel
+4C7943,Intel
+6045CB,Intel
+64D4DA,Intel
+680715,Intel
+6C2995,Intel
+7085C2,Intel
+7C7A91,Intel
+80009D,Intel
+80867D,Intel
+8C1645,Intel
+8CC681,Intel
+94659C,Intel
+9440C9,Intel
+98AF65,Intel
+A0A8CD,Intel
+A0C589,Intel
+A4C494,Intel
+AC7BA1,Intel
+B0355F,Intel
+B4B686,Intel
+B808CF,Intel
+BC0F64,Intel
+C0B658,Intel
+C4D0E3,Intel
+CC2F71,Intel
+D0577B,Intel
+D46D6D,Intel
+D8FC93,Intel
+DC5360,Intel
+E0947F,Intel
+E4A471,Intel
+E8B1FC,Intel
+EC2135,Intel
+F8341A,Intel
+FCF8AE,Intel
+#
+# --- Realtek / MediaTek / Broadcom / Qualcomm ----------------------------
+00E04C,Realtek
+525400,QEMU / KVM (maquina virtual)
+000C29,VMware
+005056,VMware
+000569,VMware
+001C14,VMware
+080027,Oracle VirtualBox
+0A0027,Oracle VirtualBox
+00155D,Microsoft Hyper-V
+0003FF,Microsoft
+000D3A,Microsoft
+0017FA,Microsoft
+28187C,Microsoft
+2816A8,Microsoft
+3C8375,Microsoft
+485073,Microsoft
+582C80,Microsoft
+6045BD,Microsoft
+7C1E52,Microsoft
+7CED8D,Microsoft
+B4AE2B,Microsoft
+C0335E,Microsoft
+DCF505,Microsoft
+E4EA4E,Microsoft
+F01DBC,Microsoft
+0017AB,Nintendo
+0019FD,Nintendo
+001AE9,Nintendo
+001BEA,Nintendo
+001CBE,Nintendo
+001DBC,Nintendo
+001E35,Nintendo
+001F32,Nintendo
+002331,Nintendo
+0025A0,Nintendo
+18202D,Nintendo
+2C10C1,Nintendo
+34AF2C,Nintendo
+40D28A,Nintendo
+582F40,Nintendo
+5C521E,Nintendo
+78A2A0,Nintendo
+8CCDE8,Nintendo
+9458CB,Nintendo
+98B6E9,Nintendo
+9CE635,Nintendo
+A45C27,Nintendo
+B87826,Nintendo
+CC9E00,Nintendo
+E00C7F,Nintendo
+E84ECE,Nintendo
+001315,Sony Interactive (PlayStation)
+0015C1,Sony Interactive (PlayStation)
+001A80,Sony
+001D0D,Sony Interactive (PlayStation)
+0019C5,Sony Interactive (PlayStation)
+0022A6,Sony Interactive (PlayStation)
+0025E7,Sony
+00248D,Sony Interactive (PlayStation)
+280DFC,Sony Interactive (PlayStation)
+2CCC44,Sony
+30F9ED,Sony
+54426B,Sony
+5CB524,Sony
+709E29,Sony
+78843C,Sony
+84C7EA,Sony
+BC60A7,Sony Interactive (PlayStation)
+C863F1,Sony
+D44B5E,Sony
+D8D43C,Sony
+F8461C,Sony
+FC0FE6,Sony Interactive (PlayStation)
+#
+# --- Routers / ISP / networking ------------------------------------------
+000FB5,NETGEAR
+00095B,NETGEAR
+001B2F,NETGEAR
+001E2A,NETGEAR
+0024B2,NETGEAR
+20E52A,NETGEAR
+288088,NETGEAR
+2C3033,NETGEAR
+3894ED,NETGEAR
+4494FC,NETGEAR
+6CB0CE,NETGEAR
+841B5E,NETGEAR
+9C3DCF,NETGEAR
+A00460,NETGEAR
+A42B8C,NETGEAR
+B03956,NETGEAR
+C03F0E,NETGEAR
+C40415,NETGEAR
+CC40D0,NETGEAR
+E0469A,NETGEAR
+E091F5,NETGEAR
+0005CD,D-Link
+001195,D-Link
+0015E9,D-Link
+00179A,D-Link
+001B11,D-Link
+001CF0,D-Link
+001E58,D-Link
+00223F,D-Link
+002401,D-Link
+00265A,D-Link
+14D64D,D-Link
+1CBDB9,D-Link
+28107B,D-Link
+340804,D-Link
+3C1E04,D-Link
+5CD998,D-Link
+84C9B2,D-Link
+90944A,D-Link
+9CD643,D-Link
+B8A386,D-Link
+C4A81D,D-Link
+CCB255,D-Link
+F07D68,D-Link
+FC7516,D-Link
+000C6E,ASUSTek
+0011D8,ASUSTek
+0013D4,ASUSTek
+0015F2,ASUSTek
+001A92,ASUSTek
+001BFC,ASUSTek
+001D60,ASUSTek
+001E8C,ASUSTek
+002354,ASUSTek
+00248C,ASUSTek
+002618,ASUSTek
+048D38,ASUSTek
+08606E,ASUSTek
+0C9D92,ASUSTek
+107B44,ASUSTek
+14DAE9,ASUSTek
+20CF30,ASUSTek
+2C4D54,ASUSTek
+2CFDA1,ASUSTek
+305A3A,ASUSTek
+382C4A,ASUSTek
+38D547,ASUSTek
+40167E,ASUSTek
+4CEDFB,ASUSTek
+50465D,ASUSTek
+54A050,ASUSTek
+60A44C,ASUSTek
+704D7B,ASUSTek
+74D02B,ASUSTek
+7824AF,ASUSTek
+8C10D4,ASUSTek
+9C5C8E,ASUSTek
+AC220B,ASUSTek
+AC9E17,ASUSTek
+B06EBF,ASUSTek
+BCAEC5,ASUSTek
+BCEE7B,ASUSTek
+C86000,ASUSTek
+D017C2,ASUSTek
+D850E6,ASUSTek
+E03F49,ASUSTek
+E0CB4E,ASUSTek
+F46D04,ASUSTek
+F832E4,ASUSTek
+FCC233,ASUSTek
+00156D,Ubiquiti Networks
+002722,Ubiquiti Networks
+0418D6,Ubiquiti Networks
+24A43C,Ubiquiti Networks
+44D9E7,Ubiquiti Networks
+687251,Ubiquiti Networks
+745FAA,Ubiquiti Networks
+784558,Ubiquiti Networks
+
+802AA8,Ubiquiti Networks
+DC9FDB,Ubiquiti Networks
+E063DA,Ubiquiti Networks
+F09FC2,Ubiquiti Networks
+FCECDA,Ubiquiti Networks
+0000AA,Xerox
+000102,3Com
+000C42,Routerboard / MikroTik
+08553B,MikroTik
+18FD74,MikroTik
+2CC81B,MikroTik
+48A98A,MikroTik
+4C5E0C,MikroTik
+6C3B6B,MikroTik
+744D28,MikroTik
+B869F4,MikroTik
+CC2DE0,MikroTik
+D4CA6D,MikroTik
+DC2C6E,MikroTik
+E48D8C,MikroTik
+F4F26D,MikroTik
+000142,Cisco
+00000C,Cisco
+000163,Cisco
+0007EB,Cisco
+001120,Cisco
+0018BA,Cisco
+001B0C,Cisco
+001DA2,Cisco
+002155,Cisco
+00234D,Cisco
+0025B4,Cisco
+3C0E23,Cisco
+4C4E35,Cisco
+5057A8,Cisco
+6C416A,Cisco
+7CAD74,Cisco
+A0ECF9,Cisco
+E0D173,Cisco
+001018,Broadcom
+00059A,Cisco-Linksys
+000C41,Cisco-Linksys
+000E08,Cisco-Linksys
+001310,Cisco-Linksys
+0014BF,Cisco-Linksys
+0016B6,Cisco-Linksys
+001A70,Cisco-Linksys
+001C10,Cisco-Linksys
+001D7E,Cisco-Linksys
+001EE5,Cisco-Linksys
+00226B,Cisco-Linksys
+002369,Cisco-Linksys
+00259C,Cisco-Linksys
+#
+# --- Huawei / ZTE / Honor ------------------------------------------------
+001882,Huawei
+002568,Huawei
+00259E,Huawei
+04021F,Huawei
+04BD70,Huawei
+04C06F,Huawei
+0C37DC,Huawei
+0C96BF,Huawei
+10474B,Huawei
+143119,Huawei
+1C1D67,Huawei
+20F3A3,Huawei
+246953,Huawei
+283CE4,Huawei
+2C55D3,Huawei
+30871D,Huawei
+3400A3,Huawei
+3CDFBD,Huawei
+40CBA8,Huawei
+446A2E,Huawei
+48435A,Huawei
+4C1FCC,Huawei
+4C5499,Huawei
+504DF7,Huawei
+543519,Huawei
+5C4CA9,Huawei
+600810,Huawei
+643E8C,Huawei
+6C8B2F,Huawei
+70723C,Huawei
+78D752,Huawei
+7CA23E,Huawei
+80717A,Huawei
+80B686,Huawei
+84A8E4,Huawei
+88E3AB,Huawei
+8C34FD,Huawei
+9C28EF,Huawei
+A47174,Huawei
+AC4E91,Huawei
+B41513,Huawei
+B4CD27,Huawei
+BCE67C,Huawei
+C40528,Huawei
+C81451,Huawei
+CC53B5,Huawei
+D02DB3,Huawei
+D40792,Huawei
+D8490B,Huawei
+DCD916,Huawei
+E0247F,Huawei
+E85AD1,Huawei
+EC233D,Huawei
+F49FF3,Huawei
+F80113,Huawei
+FC48EF,Huawei
+0015EB,ZTE
+0019C6,ZTE
+001E73,ZTE
+002293,ZTE
+3466E6,ZTE
+4C0973,ZTE
+5CF9F0,ZTE
+9C6F52,ZTE
+D0154A,ZTE
+FCC897,ZTE
+#
+# --- Oppo / Vivo / OnePlus / Realme / Motorola / Nokia --------------------
+1094BB,OPPO
+5CC1D7,OPPO
+7C1C68,OPPO
+94D029,OPPO
+C0EAE4,OPPO
+D877A2,OPPO
+E8BBA8,OPPO
+0C9838,vivo
+1C1BB5,vivo
+2C5BB8,vivo
+44A6E5,vivo
+64C2DE,vivo
+9C8CD8,vivo
+C0B101,vivo
+64A2F9,OnePlus
+94652D,OnePlus
+AC378D,OnePlus
+C0EEFB,OnePlus
+D89B3B,OnePlus
+F0A225,realme
+D470CD,realme
+0CEE99,Motorola Mobility
+1C56FE,Motorola Mobility
+40786A,Motorola Mobility
+5CB43E,Motorola Mobility
+64BC0C,Motorola Mobility
+94BF94,Motorola Mobility
+CC61E5,Motorola Mobility
+F0D7AA,Motorola Mobility
+000BE1,Nokia
+00194F,Nokia
+0021FE,Nokia
+1C5D5E,Nokia
+5C57C8,Nokia
+9CE063,Nokia
+D4B808,Nokia
+#
+# --- TV / streaming / audio ----------------------------------------------
+000E58,Sonos
+347E5C,Sonos
+542A1B,Sonos
+5CAAFD,Sonos
+7828CA,Sonos
+949F3E,Sonos
+B8E937,Sonos
+000D4B,Roku
+08052B,Roku
+20EFBD,Roku
+88DEA9,Roku
+AC3A7A,Roku
+B0A737,Roku
+B83E59,Roku
+CC6DA0,Roku
+D0049F,Roku
+D83134,Roku
+DC3A5E,Roku
+001E75,LG Electronics
+0022A9,LG Electronics
+00E091,LG Electronics
+10683F,LG Electronics
+203DBD,LG Electronics
+2C598A,LG Electronics
+34FCEF,LG Electronics
+3CBDD8,LG Electronics
+40B0FA,LG Electronics
+485929,LG Electronics
+58A2B5,LG Electronics
+6CDD30,LG Electronics
+700514,LG Electronics
+88C9D0,LG Electronics
+981DFA,LG Electronics
+A81B5A,LG Electronics
+B81DAA,LG Electronics
+C4366C,LG Electronics
+C49A02,LG Electronics
+CC2D8C,LG Electronics
+E85B5B,LG Electronics
+F80CF3,LG Electronics
+001A11,Google (Chromecast/Nest antiguo)
+002715,Philips
+002478,Philips
+001788,Signify (Philips Hue)
+ECB5FA,Signify (Philips Hue)
+#
+# --- Impresoras / NAS / oficina ------------------------------------------
+000AAA,HP
+001279,HP
+0017A4,HP
+001B78,HP
+001CC4,HP
+001E0B,HP
+00215A,HP
+00235A,HP
+002655,HP
+1458D0,HP
+2C44FD,HP
+30E171,HP
+3822E2,HP
+441EA1,HP
+6CC217,HP
+70106F,HP
+9C8E99,HP
+A0481C,HP
+B499BA,HP
+D07E28,HP
+D89D67,HP
+E4E749,HP
+F4CE46,HP
+002324,Brother
+008077,Brother
+30055C,Brother
+3C2AF4,Brother
+001BA9,Seiko Epson
+0026AB,Seiko Epson
+44D244,Seiko Epson
+9CAED3,Seiko Epson
+A4EE57,Seiko Epson
+E85A0B,Seiko Epson
+00000E,Canon
+00188B,Dell
+00219B,Dell
+002219,Dell
+14FEB5,Dell
+18DBF2,Dell
+246E96,Dell
+4CD98F,Dell
+5CF9DD,Dell
+782BCB,Dell
+8CEC4B,Dell
+90B11C,Dell
+B083FE,Dell
+D067E5,Dell
+D4AE52,Dell
+E4434B,Dell
+F04DA2,Dell
+F8BC12,Dell
+F8DB88,Dell
+F8CAB8,Dell
+00080D,Toshiba
+001C26,Lenovo
+0012FE,Lenovo
+28D244,Lenovo
+54EE75,Lenovo
+6C4B90,Lenovo
+A4B1E9,Lenovo
+E02CB2,Lenovo
+001132,Synology
+90099B,Synology
+000C55,QNAP
+00089B,QNAP
+245EBE,QNAP
+0090A9,Western Digital
+00144F,Oracle / Sun
+#
+# --- Camaras IP / videovigilancia / IoT chino ----------------------------
+00408C,Axis Communications
+ACCC8E,Axis Communications
+B8A44F,Axis Communications
+4C11BF,Zhejiang Dahua
+E0508B,Zhejiang Dahua
+BC325F,Zhejiang Dahua
+443839,Hangzhou Hikvision
+4CBD8F,Hangzhou Hikvision
+5803FB,Hangzhou Hikvision
+8CE748,Hangzhou Hikvision
+BCAD28,Hangzhou Hikvision
+E01D3B,Hangzhou Hikvision
+000FE2,Hangzhou H3C
+086195,Reolink
+3C8C40,Reolink
+EC71DB,Reolink
+1C3496,Tuya Smart
+507B9D,Tuya Smart
+68572D,Tuya Smart
+7C87CE,Tuya Smart
+84E342,Tuya Smart
+B4E842,Tuya Smart
+D4A651,Tuya Smart
+84F3EB,Shelly / Allterco
+B0B21C,Shelly / Allterco
+#
+# --- Virtualizacion / contenedores / otros --------------------------------
+0242AC,Docker (bridge)
+000000,Reservado / invalido
+FFFFFF,Broadcast

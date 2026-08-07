@@ -1,0 +1,3 @@
+# Unica dependencia externa: generacion del reporte Excel.
+# Todo lo demas es stdlib + el binario `nmap` del sistema.
+openpyxl>=3.0

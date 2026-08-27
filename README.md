@@ -1,11 +1,3 @@
-```
-    _   __           ______                     ___
-   / | / /___  _  __/ ____/_  ______ __________/ (_)___ _____
-  /  |/ / __ \| |/_/ / __/ / / / __ `/ ___/ __  / / __ `/ __ \
- / /|  / /_/ />  </ /_/ / /_/ / /_/ / /  / /_/ / / /_/ / / / /
-/_/ |_/\____/_/|_|\____/\__,_/\__,_/_/   \__,_/_/\__,_/_/ /_/
-```
-
 <h1 align="center">NoxGuardian</h1>
 
 <p align="center">
@@ -21,7 +13,7 @@
   <img src="https://img.shields.io/badge/self--tests-142%20passing-brightgreen?style=flat-square" alt="Tests">
 </p>
 
----
+<img width="391" height="441" alt="image" src="https://github.com/user-attachments/assets/31feb0de-5adf-444e-8280-34b7c75ac457" />
 
 NoxGuardian answers one question, continuously and without supervision:
 

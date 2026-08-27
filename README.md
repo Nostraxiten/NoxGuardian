@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/self--tests-142%20passing-brightgreen?style=flat-square" alt="Tests">
 </p>
 
-<img width="662" height="438" alt="image" src="https://github.com/user-attachments/assets/59e9421e-ca7c-490d-ab87-414ae240ec88" />
+  <img width="662" height="438" alt="image" src="https://github.com/user-attachments/assets/59e9421e-ca7c-490d-ab87-414ae240ec88" />
 
 NoxGuardian answers one question, continuously and without supervision:
 

@@ -521,6 +521,43 @@ noise from sleeping phones.
 ever receives the list of IPs that the presence loop confirmed alive in that
 cycle.
 
+> [!WARNING]
+> ## NoxGuardian is not a definitive security tool
+>
+> NoxGuardian is provided **as-is** and should **not be treated as a 100% accurate security, network-monitoring, or intrusion-detection solution**.
+>
+> Although the tool has been tested in real-world environments by the developer, its results may contain **false positives, false negatives, incorrect device identification, incomplete port information, or other inaccuracies**.
+>
+> Keep in mind that:
+>
+> - A detected device does **not necessarily mean that the device is malicious, unauthorized, or compromised**.
+> - A detected open port does **not necessarily indicate a vulnerability or security threat**.
+> - A device may occasionally be missed due to network conditions, timing, firewall configuration, Wi-Fi behaviour, sleep states, ARP behaviour, or other factors.
+> - MAC addresses, hostnames, vendors, IP addresses, and service/version information may be **incorrect, unavailable, or misleading**.
+> - Port states and service information reported by Nmap are observations at the time of scanning and may change between scans.
+> - Network changes occurring between monitoring cycles may not be captured immediately.
+> - The device/session history is based on what NoxGuardian observes and therefore should **not be considered a complete forensic record**.
+> - Unexpected program behaviour, dependency issues, operating-system differences, Nmap changes, or untested network configurations may cause features to malfunction or produce unexpected results.
+> - Some functionality may work differently depending on privileges, network interface configuration, subnet topology, and the environment in which NoxGuardian is executed.
+>
+> **Do not rely on NoxGuardian alone to make security-critical decisions.** Always verify important findings using additional tools, logs, packet captures, router/AP information, endpoint telemetry, or other appropriate sources of evidence.
+>
+> NoxGuardian is intended to be a **monitoring and visibility aid**, not a replacement for professional network monitoring, IDS/IPS, SIEM, vulnerability assessment, or forensic investigation tools.
+>
+> The developer has personally tested NoxGuardian in their own environments, including LAN monitoring and port-detection scenarios. These tests do **not** guarantee that the tool will behave correctly in every environment or that its results are always accurate.
+>
+> **If NoxGuardian reports something suspicious, treat it as an indication that requires investigation — not as definitive proof of malicious activity.**
+>
+> Use NoxGuardian at your own discretion and always validate important results independently.
+
+
+
+
+
+
+
+
+
 ---
 
 ## License

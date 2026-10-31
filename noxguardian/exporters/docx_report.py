@@ -23,7 +23,6 @@ Design rules:
 
 from __future__ import annotations
 
-import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
@@ -146,7 +145,7 @@ def _fill_document(
                 f"[SECCIÓN {key}]",
                 f"[CONTENIDO SECCION {key}]",
                 f"[CONTENIDO SECCIÓN {key}]",
-                f"NO VERIFICADO",          # generic placeholder
+                "NO VERIFICADO",          # generic placeholder
             ]
             replaced = False
             for marker in marker_variants:
@@ -172,8 +171,6 @@ def _append_all_sections(
     This is a safe fallback: even if the template uses no markers, the
     auto-generated content ends up in the document.
     """
-    import docx.oxml.ns as qn_module  # noqa: F401 - check python-docx available
-
     _add_heading(doc, "CONTENIDO AUTOGENERADO POR NOXGUARDIAN", level=1)
 
     _add_heading(doc, "Sección 3: Identificación de equipos", level=2)

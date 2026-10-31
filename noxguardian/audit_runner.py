@@ -32,8 +32,6 @@ Log markers follow the existing convention:
 
 from __future__ import annotations
 
-import json
-import shutil
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -41,7 +39,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 
 from . import netinfo, ports_profile
-from .config import Config
 from .exporters.checkpoint import CheckpointStore
 from .exporters.txtlog import EventLog
 from .oui import OuiResolver
@@ -52,7 +49,7 @@ from .scanners.pcap_runner import PcapRunner, tshark_version
 from .scanners.ports import PortScanner
 from .scanners.presence import PresenceScanner
 from .scanners.vuln_runner import VulnRunner, searchsploit_version
-from .state import EVT_ERROR, EVT_INFO, EVT_SCAN, StateManager
+from .state import StateManager
 
 # Subdirectory layout inside the audit output folder.
 _SUBDIRS = {
@@ -334,7 +331,7 @@ def run_audit(
     template_path = template or Path("Plantilla_Informe_Auditoria_Seguridad.docx")
     if template_path.is_file():
         try:
-            from .exporters.docx_report import generate, DocxReportError
+            from .exporters.docx_report import generate
 
             date_label = time.strftime("%Y-%m-%d")
             report_path = dirs["report"] / f"Auditoria_{date_label}.docx"

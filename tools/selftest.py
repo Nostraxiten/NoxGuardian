@@ -695,9 +695,11 @@ def verify_audit_modules(workdir: Path) -> None:
     check((dns_dir / "dig_192.168.1.1.txt").exists(), "dns txt escrito en disco")
     check(dns_result.ok, "dns result.ok cuando no hay error")
 
-    dns_runner_no = DnsRunner(dig_path=None)
-    dns_result_no = dns_runner_no.run("10.0.0.1", dns_dir)
-    check(dns_result_no.error is not None, "dns sin dig devuelve error sin lanzar excepcion")
+    with mock.patch("noxguardian.scanners.dns_runner.find_dig", return_value=None):
+        dns_runner_no = DnsRunner(dig_path=None)
+        check(not dns_runner_no.available, "dns runner.available False sin dig")
+        dns_result_no = dns_runner_no.run("10.0.0.1", dns_dir)
+        check(dns_result_no.error is not None, "dns sin dig devuelve error sin lanzar excepcion")
 
     # -- http_runner ----------------------------------------------------------
     from noxguardian.scanners.http_runner import HttpRunner
@@ -786,13 +788,13 @@ def verify_audit_modules(workdir: Path) -> None:
     pcap_dir = audit_work / "06_evidencia_pcap"
     pcap_dir.mkdir(exist_ok=True)
 
-    pcap_runner_no = PcapRunner(tshark_path=None)
-    check(not pcap_runner_no.available, "pcap runner.available False sin tshark")
-
-    pcap_result_no = pcap_runner_no.run("192.168.1.1", "eth0", pcap_dir)
-    check(pcap_result_no.error is not None, "pcap sin tshark devuelve error sin excepcion")
-    check(pcap_result_no.ok is False, "pcap result.ok False cuando hay error")
-    check(True, "pcap runner instanciado sin errores")
+    with mock.patch("noxguardian.scanners.pcap_runner.find_tshark", return_value=None):
+        pcap_runner_no = PcapRunner(tshark_path=None)
+        check(not pcap_runner_no.available, "pcap runner.available False sin tshark")
+        pcap_result_no = pcap_runner_no.run("192.168.1.1", "eth0", pcap_dir)
+        check(pcap_result_no.error is not None, "pcap sin tshark devuelve error sin excepcion")
+        check(pcap_result_no.ok is False, "pcap result.ok False cuando hay error")
+        check(True, "pcap runner instanciado sin errores")
 
     # -- state.py audit fields ------------------------------------------------
     section("State.py audit fields")
@@ -848,7 +850,7 @@ def verify_audit_modules(workdir: Path) -> None:
     # -- docx_report ----------------------------------------------------------
     try:
         import docx
-        from noxguardian.exporters.docx_report import generate, DocxReportError
+        from noxguardian.exporters.docx_report import generate
 
         dummy_doc = docx.Document()
         dummy_doc.add_heading("Informe de Auditoria", 0)

@@ -664,6 +664,216 @@ def verify_helpers() -> None:
 # ---------------------------------------------------------------------------
 
 
+def verify_audit_modules(workdir: Path) -> None:
+    """Tests for dns_runner, http_runner, vuln_runner, pcap_runner and state audit fields."""
+    import unittest.mock as mock
+    import json as _json
+
+    section("Audit modules (mocked subprocess)")
+
+    audit_work = workdir / "audit_mock"
+    audit_work.mkdir(exist_ok=True)
+
+    # -- dns_runner -----------------------------------------------------------
+    from noxguardian.scanners.dns_runner import DnsRunner, _is_local_name, _first_line
+
+    check(_first_line("  \nrouter.local\n") == "router.local", "dns _first_line extrae primera linea no vacia")
+    check(_is_local_name("router.local"), "dns _is_local_name detecta .local")
+    check(_is_local_name("host.lan"), "dns _is_local_name detecta .lan")
+    check(not _is_local_name("www.google.com"), "dns _is_local_name ignora dominio publico")
+
+    dns_dir = audit_work / "03_dns"
+    dns_dir.mkdir(exist_ok=True)
+    dns_runner = DnsRunner(dig_path="/usr/bin/dig", timeout=5.0)
+
+    fake_ptr = "router.local.\n"
+    with mock.patch("subprocess.run") as mocked:
+        mocked.return_value = mock.MagicMock(stdout=fake_ptr, stderr="", returncode=0)
+        dns_result = dns_runner.run("192.168.1.1", dns_dir)
+
+    check(dns_result.ptr == "router.local", f"dns PTR resuelto correctamente (got {dns_result.ptr!r})")
+    check((dns_dir / "dig_192.168.1.1.txt").exists(), "dns txt escrito en disco")
+    check(dns_result.ok, "dns result.ok cuando no hay error")
+
+    dns_runner_no = DnsRunner(dig_path=None)
+    dns_result_no = dns_runner_no.run("10.0.0.1", dns_dir)
+    check(dns_result_no.error is not None, "dns sin dig devuelve error sin lanzar excepcion")
+
+    # -- http_runner ----------------------------------------------------------
+    from noxguardian.scanners.http_runner import HttpRunner
+
+    http_dir = audit_work / "04_http"
+    http_dir.mkdir(exist_ok=True)
+    http_runner = HttpRunner(curl_path="/usr/bin/curl", timeout=5.0)
+
+    fake_curl_out = (
+        "HTTP/1.1 301 Moved Permanently\r\n"
+        "Location: https://192.168.1.1:443/\r\n"
+        "Server: nginx/1.24.0\r\n"
+        "\r\n"
+        "HTTP/2 200\r\n"
+        "Server: nginx/1.24.0\r\n"
+        "Strict-Transport-Security: max-age=31536000\r\n"
+        "X-Frame-Options: SAMEORIGIN\r\n"
+        "Content-Security-Policy: default-src 'self'\r\n"
+    )
+    with mock.patch("subprocess.run") as mocked:
+        mocked.return_value = mock.MagicMock(stdout=fake_curl_out, stderr="", returncode=0)
+        http_result = http_runner.run("192.168.1.1", 80, http_dir)
+
+    check(http_result.status_code == 200, f"http status code 200 (got {http_result.status_code})")
+    check(http_result.server == "nginx/1.24.0", f"http Server header (got {http_result.server!r})")
+    check(http_result.hsts == "max-age=31536000", f"http HSTS header (got {http_result.hsts!r})")
+    check(http_result.x_frame_options == "SAMEORIGIN", "http X-Frame-Options")
+    check(http_result.csp == "default-src 'self'", "http CSP header")
+    check(http_result.redirects_to_https, "http detecta redirect 80->443")
+    check((http_dir / "curl_192.168.1.1_80.txt").exists(), "http txt escrito en disco")
+
+    # degradation: simulate curl not found
+    with mock.patch("noxguardian.scanners.http_runner.find_curl", return_value=None):
+        http_runner_no = HttpRunner(curl_path=None)
+        check(not http_runner_no.available, "http runner.available False sin curl")
+        http_result_no = http_runner_no.run("192.168.1.1", 80, http_dir)
+        check(http_result_no.error is not None, "http sin curl devuelve error sin excepcion")
+
+    # -- vuln_runner ----------------------------------------------------------
+    from noxguardian.scanners.vuln_runner import VulnRunner, _safe_name
+
+    check(_safe_name("nginx/1.24") == "nginx_1.24", f"vuln _safe_name (got {_safe_name('nginx/1.24')!r})")
+
+    vuln_dir = audit_work / "05_vulnerabilidades"
+    vuln_dir.mkdir(exist_ok=True)
+    vuln_runner = VulnRunner(searchsploit_path=None, nvd_timeout=5.0)
+
+    vresult_unk = vuln_runner.run("someservice", "unknown", vuln_dir)
+    check(vresult_unk.error is not None, "vuln omite busqueda con version 'unknown'")
+    check(not vresult_unk.has_findings, "vuln sin hallazgos para version 'unknown'")
+
+    nvd_payload = {
+        "vulnerabilities": [
+            {
+                "cve": {
+                    "id": "CVE-2023-12345",
+                    "descriptions": [{"lang": "en", "value": "Test vulnerability."}],
+                    "metrics": {
+                        "cvssMetricV31": [
+                            {"cvssData": {"baseScore": 9.8, "baseSeverity": "CRITICAL"}}
+                        ]
+                    },
+                }
+            }
+        ]
+    }
+
+    fake_response = mock.MagicMock()
+    fake_response.read.return_value = _json.dumps(nvd_payload).encode()
+    fake_response.__enter__ = lambda s: s
+    fake_response.__exit__ = mock.MagicMock(return_value=False)
+
+    with mock.patch("urllib.request.urlopen", return_value=fake_response):
+        vresult2 = vuln_runner.run("nginx", "1.24.0", vuln_dir)
+
+    check(len(vresult2.cves) == 1, f"vuln encontro 1 CVE de NVD (got {len(vresult2.cves)})")
+    check(vresult2.cves[0].cve_id == "CVE-2023-12345", "vuln CVE-ID correcto")
+    check(vresult2.cves[0].cvss_v3 == 9.8, f"vuln CVSS correcto (got {vresult2.cves[0].cvss_v3})")
+    check(vresult2.cves[0].severity == "CRITICAL", "vuln severidad correcta")
+    check(vresult2.has_findings, "vuln.has_findings True cuando hay CVEs")
+    check((vuln_dir / "nvd_CVE-2023-12345.txt").exists(), "vuln nvd txt escrito en disco")
+
+    # -- pcap_runner ----------------------------------------------------------
+    from noxguardian.scanners.pcap_runner import PcapRunner
+
+    pcap_dir = audit_work / "06_evidencia_pcap"
+    pcap_dir.mkdir(exist_ok=True)
+
+    pcap_runner_no = PcapRunner(tshark_path=None)
+    check(not pcap_runner_no.available, "pcap runner.available False sin tshark")
+
+    pcap_result_no = pcap_runner_no.run("192.168.1.1", "eth0", pcap_dir)
+    check(pcap_result_no.error is not None, "pcap sin tshark devuelve error sin excepcion")
+    check(pcap_result_no.ok is False, "pcap result.ok False cuando hay error")
+    check(True, "pcap runner instanciado sin errores")
+
+    # -- state.py audit fields ------------------------------------------------
+    section("State.py audit fields")
+
+    from noxguardian.state import Device, StateManager as SM
+    from noxguardian.scanners.presence import PresenceResult
+
+    oui2 = OuiResolver(use_system_sources=False)
+    sm = SM(oui=oui2)
+    test_host = PresenceHost(ip="10.0.0.1", mac="aa:bb:cc:dd:ee:ff")
+    sm.apply_presence(
+        PresenceResult(
+            hosts=[test_host], method="mock", duration=0.1, started_at=time.time()
+        )
+    )
+    dev = sm._find_by_ip("10.0.0.1")
+    check(dev is not None, "state: dispositivo de prueba encontrado")
+    check(dev.dns_ptr is None, "state: dns_ptr inicializado a None")
+    check(dev.http_headers == {}, "state: http_headers inicializado a dict vacio")
+    check(dev.vuln_findings == [], "state: vuln_findings inicializado a lista vacia")
+    check(dev.pcap_evidence is None, "state: pcap_evidence inicializado a None")
+
+    dev.dns_ptr = "mirouter.local"
+    dev.http_headers = {"80": {"server": "nginx", "hsts": None}}
+    dev.vuln_findings = [{"service": "nginx", "version": "1.24.0", "cves": []}]
+    dev.pcap_evidence = {"ip": "10.0.0.1", "packets_captured": 4}
+
+    d = dev.to_dict()
+    check(d["dns_ptr"] == "mirouter.local", "state: dns_ptr serializado")
+    check(d["http_headers"]["80"]["server"] == "nginx", "state: http_headers serializado")
+    check(len(d["vuln_findings"]) == 1, "state: vuln_findings serializado")
+    check(d["pcap_evidence"]["packets_captured"] == 4, "state: pcap_evidence serializado")
+
+    dev2 = Device.from_dict(d)
+    check(dev2.dns_ptr == "mirouter.local", "state: dns_ptr deserializado")
+    check(dev2.http_headers["80"]["server"] == "nginx", "state: http_headers deserializado")
+    check(dev2.pcap_evidence["packets_captured"] == 4, "state: pcap_evidence deserializado")
+
+    schema1_data = {
+        "schema": 1,
+        "devices": [],
+        "events": [],
+        "counters": {},
+        "presence_samples": [],
+    }
+    sm2 = SM(oui=oui2)
+    try:
+        sm2.load_dict(schema1_data)
+        check(True, "state: checkpoint schema 1 cargado sin error (compatibilidad)")
+    except ValueError:
+        check(False, "state: checkpoint schema 1 deberia ser compatible")
+
+    # -- docx_report ----------------------------------------------------------
+    try:
+        import docx
+        from noxguardian.exporters.docx_report import generate, DocxReportError
+
+        dummy_doc = docx.Document()
+        dummy_doc.add_heading("Informe de Auditoria", 0)
+        dummy_doc.add_paragraph("<<SECCION_3>>")
+        dummy_doc.add_paragraph("<<SECCION_4>>")
+        dummy_doc.add_paragraph("<<SECCION_5.6>>")
+        dummy_doc.add_paragraph("<<SECCION_9>>")
+        dummy_doc.add_paragraph("<<SECCION_10>>")
+        tmpl_file = audit_work / "template.docx"
+        out_docx = audit_work / "07_informe" / "Auditoria_test.docx"
+        dummy_doc.save(str(tmpl_file))
+
+        res_path = generate(
+            state=sm,
+            template_path=tmpl_file,
+            output_path=out_docx,
+            audit_dir=audit_work,
+            tool_versions={"nmap": "7.94", "dig": "9.18"},
+        )
+        check(res_path.exists(), "docx: informe generado en disco")
+        check(res_path.stat().st_size > 1000, "docx: tamano de fichero razonable")
+    except ImportError:
+        pass
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--keep", type=Path, default=None, help="conservar la salida en esta ruta")
@@ -694,6 +904,7 @@ def main() -> int:
     verify_unreachable_not_error()
     verify_proc_net_route(workdir)
     verify_helpers()
+    verify_audit_modules(workdir)
 
     print(f"\n{'=' * 60}")
     if FAILURES:
@@ -715,3 +926,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

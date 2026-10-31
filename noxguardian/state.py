@@ -24,7 +24,7 @@ from .oui import (
 from .scanners.ports import PortResult
 from .scanners.presence import PresenceHost, PresenceResult
 
-STATE_SCHEMA_VERSION = 1
+STATE_SCHEMA_VERSION = 2
 
 # Tipos de evento
 EVT_DEVICE_JOIN = "DEVICE_JOIN"
@@ -148,6 +148,17 @@ class Device:
     deep_scans: int = 0
     last_deep_scan: Optional[float] = None
 
+    # -- campos nuevos del subcomando audit -----------------------------------
+
+    # PTR resuelto por dns_runner (ej. "router.local")
+    dns_ptr: Optional[str] = None
+    # Cabeceras HTTP por puerto: {"80": {"server": "nginx", "hsts": None, ...}}
+    http_headers: Dict[str, Any] = field(default_factory=dict)
+    # Hallazgos de vulnerabilidades: lista de VulnResult.to_dict()
+    vuln_findings: List[Dict[str, Any]] = field(default_factory=list)
+    # Evidencia de captura pcap: PcapResult.to_dict()
+    pcap_evidence: Optional[Dict[str, Any]] = None
+
     # -- calculos ------------------------------------------------------------
 
     def present_seconds(self, until: float) -> float:
@@ -192,6 +203,11 @@ class Device:
             "ip_history": self.ip_history,
             "deep_scans": self.deep_scans,
             "last_deep_scan": self.last_deep_scan,
+            # audit fields
+            "dns_ptr": self.dns_ptr,
+            "http_headers": self.http_headers,
+            "vuln_findings": self.vuln_findings,
+            "pcap_evidence": self.pcap_evidence,
         }
 
     @staticmethod
@@ -216,6 +232,11 @@ class Device:
             ip_history=[list(item) for item in data.get("ip_history", [])],
             deep_scans=int(data.get("deep_scans", 0)),
             last_deep_scan=data.get("last_deep_scan"),
+            # audit fields -- safe defaults so old checkpoints still load
+            dns_ptr=data.get("dns_ptr"),
+            http_headers=dict(data.get("http_headers") or {}),
+            vuln_findings=list(data.get("vuln_findings") or []),
+            pcap_evidence=data.get("pcap_evidence"),
         )
 
 
@@ -867,7 +888,8 @@ class StateManager:
     def load_dict(self, data: Dict[str, Any]) -> None:
         """Restaura un checkpoint previo sobre este gestor (--resume)."""
         schema = int(data.get("schema", 0))
-        if schema != STATE_SCHEMA_VERSION:
+        # Schema 1 checkpoints (sin campos de audit) siguen siendo legibles.
+        if schema not in (1, STATE_SCHEMA_VERSION):
             raise ValueError(
                 f"checkpoint con esquema {schema}, incompatible con "
                 f"esta version ({STATE_SCHEMA_VERSION})"

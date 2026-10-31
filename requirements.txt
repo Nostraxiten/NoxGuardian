@@ -1,3 +1,9 @@
-# Unica dependencia externa: generacion del reporte Excel.
-# Todo lo demas es stdlib + el binario `nmap` del sistema.
+# Dependencias externas de NoxGuardian.
+# Todo lo demas es stdlib + binarios del sistema (nmap, dig, curl, tshark).
+
+# Reporte Excel al terminar la monitorizacion continua.
 openpyxl>=3.0
+
+# Informe Word generado por el subcomando 'audit' (opcional).
+# Si no esta instalado, el resto de la auditoria funciona igualmente.
+python-docx>=1.0

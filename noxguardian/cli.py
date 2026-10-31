@@ -190,6 +190,76 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="ejecuta las comprobaciones de entorno (nmap, privilegios, red) y sale",
     )
+
+    # -- subcomando audit ----------------------------------------------------
+    subparsers = parser.add_subparsers(dest="subcommand", metavar="SUBCOMANDO")
+    audit_p = subparsers.add_parser(
+        "audit",
+        help="auditoría completa de un solo golpe: presencia, puertos, DNS, HTTP, "
+             "vulnerabilidades, captura pcap e informe Word.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    audit_p.add_argument(
+        "--subnet",
+        default=None,
+        metavar="CIDR",
+        help="subred a auditar (por defecto se autodetecta)",
+    )
+    audit_p.add_argument(
+        "--template",
+        type=Path,
+        default=None,
+        metavar="DOCX",
+        help="ruta de la plantilla Word para el informe final",
+    )
+    audit_p.add_argument(
+        "--workers",
+        type=int,
+        default=2,
+        metavar="N",
+        help="hosts analizados en paralelo (DNS/HTTP)",
+    )
+    audit_p.add_argument(
+        "--ports",
+        default=ports_profile.DEFAULT_PORT_SPEC,
+        metavar="SPEC",
+        help="especificacion de puertos para el escaneo profundo",
+    )
+    audit_p.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("."),
+        metavar="DIR",
+        help="directorio raiz donde se crea la carpeta de auditoría",
+    )
+    audit_p.add_argument(
+        "--force-fallback",
+        action="store_true",
+        help="fuerza el barrido TCP aunque haya root",
+    )
+    audit_p.add_argument(
+        "--oui-file",
+        type=Path,
+        default=None,
+        metavar="FICHERO",
+    )
+    audit_p.add_argument(
+        "--no-system-oui",
+        action="store_true",
+    )
+    audit_p.add_argument(
+        "--local-domain",
+        default=None,
+        metavar="DOMINIO",
+        help="sufijo DNS local para resolución forward (ej. home.lan)",
+    )
+    audit_p.add_argument(
+        "--nvd-api-key",
+        default=None,
+        metavar="APIKEY",
+        help="API key de NVD (opcional; sin ella el rate-limit es más restrictivo)",
+    )
+
     return parser
 
 
@@ -329,6 +399,26 @@ def install_signal_handlers(engine: GuardianEngine) -> None:
 def main(argv: Optional[List[str]] = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    # -- subcomando audit -----------------------------------------------------
+    if getattr(args, "subcommand", None) == "audit":
+        try:
+            from .audit_runner import run_audit
+        except ImportError:
+            from audit_runner import run_audit
+
+        return run_audit(
+            subnet=getattr(args, "subnet", None),
+            template=getattr(args, "template", None),
+            workers=getattr(args, "workers", 2),
+            ports=getattr(args, "ports", ports_profile.DEFAULT_PORT_SPEC),
+            force_fallback=getattr(args, "force_fallback", False),
+            oui_file=getattr(args, "oui_file", None),
+            no_system_oui=getattr(args, "no_system_oui", False),
+            base_output_dir=getattr(args, "output_dir", Path(".")),
+            local_domain=getattr(args, "local_domain", None),
+            nvd_api_key=getattr(args, "nvd_api_key", None),
+        )
 
     if args.list_ports:
         spec = ports_profile.normalize(args.ports)

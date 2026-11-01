@@ -158,6 +158,8 @@ class Device:
     vuln_findings: List[Dict[str, Any]] = field(default_factory=list)
     # Evidencia de captura pcap: PcapResult.to_dict()
     pcap_evidence: Optional[Dict[str, Any]] = None
+    # Inspección SSL/TLS (sslscan) por puerto: {"443": SslResult.to_dict(), ...}
+    ssl_results: Dict[str, Any] = field(default_factory=dict)
 
     # -- calculos ------------------------------------------------------------
 
@@ -208,6 +210,7 @@ class Device:
             "http_headers": self.http_headers,
             "vuln_findings": self.vuln_findings,
             "pcap_evidence": self.pcap_evidence,
+            "ssl_results": self.ssl_results,
         }
 
     @staticmethod
@@ -237,6 +240,7 @@ class Device:
             http_headers=dict(data.get("http_headers") or {}),
             vuln_findings=list(data.get("vuln_findings") or []),
             pcap_evidence=data.get("pcap_evidence"),
+            ssl_results=dict(data.get("ssl_results") or {}),
         )
 
 

@@ -231,24 +231,51 @@ def _build_section4(devices: "List[Device]") -> str:
 
 
 def _build_section56(devices: "List[Device]") -> str:
-    """Section 5.6: HTTP services and security headers."""
+    """Section 5.6: HTTP services, security headers, and SSL/TLS configuration."""
     lines = []
     for dev in sorted(devices, key=lambda d: d.ip or ""):
-        if not dev.http_headers:
+        has_http = bool(dev.http_headers)
+        has_ssl = bool(getattr(dev, "ssl_results", None))
+        if not has_http and not has_ssl:
             continue
         lines.append(f"\n[{dev.ip}]")
-        for port_str, headers in sorted(dev.http_headers.items()):
-            lines.append(f"  Puerto {port_str}:")
-            lines.append(f"    Servidor          : {headers.get('server') or '—'}")
-            lines.append(f"    Código de estado  : {headers.get('status_code') or '—'}")
-            lines.append(f"    Redirige a HTTPS  : {'Sí' if headers.get('redirects_to_https') else 'No'}")
-            lines.append(f"    HSTS              : {headers.get('hsts') or 'No presente'}")
-            lines.append(f"    X-Frame-Options   : {headers.get('x_frame_options') or 'No presente'}")
-            lines.append(f"    CSP               : {headers.get('csp') or 'No presente'}")
-            lines.append(f"    X-Content-Type    : {headers.get('x_content_type') or 'No presente'}")
+        if has_http:
+            lines.append("  -- Inspección HTTP / Cabeceras de seguridad --")
+            for port_str, headers in sorted(dev.http_headers.items()):
+                lines.append(f"  Puerto {port_str}:")
+                lines.append(f"    Servidor          : {headers.get('server') or '—'}")
+                lines.append(f"    Código de estado  : {headers.get('status_code') or '—'}")
+                lines.append(f"    Redirige a HTTPS  : {'Sí' if headers.get('redirects_to_https') else 'No'}")
+                lines.append(f"    HSTS              : {headers.get('hsts') or 'No presente'}")
+                lines.append(f"    X-Frame-Options   : {headers.get('x_frame_options') or 'No presente'}")
+                lines.append(f"    CSP               : {headers.get('csp') or 'No presente'}")
+                lines.append(f"    X-Content-Type    : {headers.get('x_content_type') or 'No presente'}")
+        if has_ssl:
+            lines.append("  -- Configuración SSL/TLS y Certificados (sslscan) --")
+            for port_str, ssl_info in sorted(dev.ssl_results.items()):
+                lines.append(f"  Puerto {port_str}:")
+                tool_label = ssl_info.get("tool_used", "sslscan")
+                lines.append(f"    Herramienta       : {tool_label}")
+                protos = ", ".join(ssl_info.get("protocols_enabled", [])) or "—"
+                lines.append(f"    Protocolos activos: {protos}")
+                if ssl_info.get("protocols_disabled"):
+                    lines.append(f"    Desactivados      : {', '.join(ssl_info['protocols_disabled'])}")
+                lines.append(f"    Cifrado preferido : {ssl_info.get('preferred_cipher') or '—'}")
+                lines.append(f"    Cert. Emisor      : {ssl_info.get('cert_issuer') or '—'}")
+                lines.append(f"    Cert. Sujeto      : {ssl_info.get('cert_subject') or '—'}")
+                lines.append(f"    Cert. Validez     : {ssl_info.get('cert_validity') or '—'}")
+                if ssl_info.get("cert_self_signed"):
+                    lines.append("    Cert. Autofirmado : Sí (alerta de confianza)")
+                if ssl_info.get("heartbleed_vulnerable"):
+                    lines.append("    [!] Vulnerabilidad: VULNERABLE A HEARTBLEED")
+                if ssl_info.get("insecure_renegotiation"):
+                    lines.append("    [!] Vulnerabilidad: Renegociación insegura permitida")
+                if ssl_info.get("compression_enabled"):
+                    lines.append("    [!] Alerta        : Compresión TLS activada (CRIME)")
+
     if not lines:
-        return "No se detectaron puertos web abiertos o no se realizó inspección HTTP."
-    return "Resultados de inspección de cabeceras HTTP/HTTPS:\n" + "\n".join(lines)
+        return "No se detectaron puertos web o SSL/TLS abiertos para inspección."
+    return "Resultados de inspección HTTP y SSL/TLS:\n" + "\n".join(lines)
 
 
 def _build_section6(devices: "List[Device]") -> str:
@@ -300,8 +327,9 @@ def _build_section9(tool_versions: Dict[str, str]) -> str:
         "2. Inventario de puertos y versiones   -- nmap -sV -T4 -Pn",
         "3. Resolución DNS inversa              -- dig -x <ip> +short",
         "4. Inspección de cabeceras HTTP/HTTPS  -- curl -s -I -L",
-        "5. Búsqueda de vulnerabilidades        -- searchsploit + NVD API v2",
-        "6. Evidencia de existencia de host     -- tshark + ping",
+        "5. Evaluación SSL/TLS y certificados   -- sslscan (o stdlib ssl fallback)",
+        "6. Búsqueda de vulnerabilidades        -- searchsploit + NVD API v2",
+        "7. Evidencia de existencia de host     -- tshark + ping",
         "",
         "Herramientas y versiones detectadas en el sistema:",
     ]

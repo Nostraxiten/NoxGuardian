@@ -48,6 +48,7 @@ from .scanners.nmap_runner import NmapRunner, nmap_version
 from .scanners.pcap_runner import PcapRunner, tshark_version
 from .scanners.ports import PortScanner
 from .scanners.presence import PresenceScanner
+from .scanners.ssl_runner import SslRunner, sslscan_version
 from .scanners.vuln_runner import VulnRunner, searchsploit_version
 from .state import StateManager
 
@@ -117,6 +118,7 @@ def run_audit(
         "nmap": nmap_version(runner.path) or "no disponible",
         "dig": dig_version() or "no disponible",
         "curl": curl_version() or "no disponible",
+        "sslscan": sslscan_version() or "no disponible (fallback stdlib ssl)",
         "tshark": tshark_version() or "no disponible",
         "searchsploit": searchsploit_version() or "no disponible",
     }
@@ -211,6 +213,7 @@ def run_audit(
 
     dns_runner = DnsRunner(timeout=15.0, local_domain=local_domain)
     http_runner = HttpRunner(timeout=10.0)
+    ssl_runner = SslRunner(timeout=15.0)
 
     def process_host_dns_http(ip: str) -> None:
         device = state._find_by_ip(ip)  # noqa: SLF001 - internal access for performance
@@ -242,6 +245,18 @@ def run_audit(
                 log.note(f"[E] HTTP {ip}:{port}: {http_result.error}")
             with state._lock:  # noqa: SLF001
                 device.http_headers[str(port)] = http_result.to_dict()
+
+        # SSL/TLS scan via sslscan (with stdlib fallback)
+        for precord in device.ports.values():
+            if precord.currently_open and ssl_runner.is_ssl_port(precord.port, precord.service):
+                ssl_result = ssl_runner.run(ip, precord.port, dirs["http"])
+                if ssl_result.error:
+                    log.note(f"[E] SSL {ip}:{precord.port}: {ssl_result.error}")
+                else:
+                    protos = ", ".join(ssl_result.protocols_enabled) or "TLS"
+                    log.note(f"[+] SSL {ip}:{precord.port}: {protos} ({ssl_result.tool_used})")
+                with state._lock:  # noqa: SLF001
+                    device.ssl_results[str(precord.port)] = ssl_result.to_dict()
 
     actual_workers = min(workers, len(live_ips))
     with ThreadPoolExecutor(max_workers=actual_workers, thread_name_prefix="nox-audit") as pool:

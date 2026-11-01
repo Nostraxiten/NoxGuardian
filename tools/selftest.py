@@ -738,6 +738,58 @@ def verify_audit_modules(workdir: Path) -> None:
         http_result_no = http_runner_no.run("192.168.1.1", 80, http_dir)
         check(http_result_no.error is not None, "http sin curl devuelve error sin excepcion")
 
+    # -- ssl_runner -----------------------------------------------------------
+    from noxguardian.scanners.ssl_runner import SslRunner
+
+    ssl_runner = SslRunner(sslscan_path="/usr/bin/sslscan", timeout=5.0)
+    check(ssl_runner.available, "ssl_runner.available True con path")
+    check(ssl_runner.is_ssl_port(443), "ssl_runner detecta 443 como puerto SSL")
+    check(ssl_runner.is_ssl_port(8080, "ssl/http"), "ssl_runner detecta servicio ssl")
+    check(not ssl_runner.is_ssl_port(22, "ssh"), "ssl_runner no confunde puerto ssh con ssl")
+
+    fake_sslscan_out = (
+        "Testing SSL server 192.168.1.1 on port 443\n"
+        "  TLS renegotiation:\n"
+        "Secure session renegotiation supported\n"
+        "  Heartbleed:\n"
+        "TLS 1.2 not vulnerable to heartbleed\n"
+        "  SSL Protocols:\n"
+        "SSLv2     disabled\n"
+        "SSLv3     disabled\n"
+        "TLSv1.0   disabled\n"
+        "TLSv1.1   disabled\n"
+        "TLSv1.2   enabled\n"
+        "TLSv1.3   enabled\n"
+        "  Supported Server Cipher(s):\n"
+        "Preferred TLSv1.3  128 bits  TLS_AES_128_GCM_SHA256\n"
+        "Accepted  TLSv1.2  256 bits  ECDHE-RSA-AES256-GCM-SHA384\n"
+        "  SSL Certificate:\n"
+        "Subject:  router.local\n"
+        "Issuer:   router.local\n"
+        "Not valid before: Jan  1 00:00:00 2024 GMT\n"
+        "Not valid after:  Jan  1 00:00:00 2034 GMT\n"
+    )
+
+    with mock.patch("subprocess.run") as mocked:
+        mocked.return_value = mock.MagicMock(stdout=fake_sslscan_out, stderr="", returncode=0)
+        ssl_res = ssl_runner.run("192.168.1.1", 443, http_dir)
+
+    check("TLSv1.2" in ssl_res.protocols_enabled, "sslscan detecta TLSv1.2 activo")
+    check("TLSv1.3" in ssl_res.protocols_enabled, "sslscan detecta TLSv1.3 activo")
+    check("SSLv3" in ssl_res.protocols_disabled, "sslscan detecta SSLv3 desactivado")
+    check(ssl_res.cert_subject == "router.local", "sslscan Subject correcto")
+    check(ssl_res.cert_self_signed, "sslscan detecta certificado autofirmado")
+    check(not ssl_res.heartbleed_vulnerable, "sslscan no vulnerable a Heartbleed")
+    check((http_dir / "sslscan_192.168.1.1_443.txt").exists(), "sslscan txt escrito en disco")
+
+    # degradation / fallback test: when sslscan is not installed, uses stdlib
+    with mock.patch("noxguardian.scanners.ssl_runner.find_sslscan", return_value=None):
+        ssl_runner_fallback = SslRunner(sslscan_path=None)
+        check(not ssl_runner_fallback.available, "ssl runner sin binario available False")
+        with mock.patch("socket.create_connection", side_effect=OSError("connection refused")):
+            ssl_res_err = ssl_runner_fallback.run("192.168.1.1", 443, http_dir)
+            check(ssl_res_err.error is not None, "ssl fallback captura error de conexion")
+
     # -- vuln_runner ----------------------------------------------------------
     from noxguardian.scanners.vuln_runner import VulnRunner, _safe_name
 
@@ -816,21 +868,25 @@ def verify_audit_modules(workdir: Path) -> None:
     check(dev.http_headers == {}, "state: http_headers inicializado a dict vacio")
     check(dev.vuln_findings == [], "state: vuln_findings inicializado a lista vacia")
     check(dev.pcap_evidence is None, "state: pcap_evidence inicializado a None")
+    check(dev.ssl_results == {}, "state: ssl_results inicializado a dict vacio")
 
     dev.dns_ptr = "mirouter.local"
     dev.http_headers = {"80": {"server": "nginx", "hsts": None}}
+    dev.ssl_results = {"443": {"protocols_enabled": ["TLSv1.3"], "tool_used": "sslscan"}}
     dev.vuln_findings = [{"service": "nginx", "version": "1.24.0", "cves": []}]
     dev.pcap_evidence = {"ip": "10.0.0.1", "packets_captured": 4}
 
     d = dev.to_dict()
     check(d["dns_ptr"] == "mirouter.local", "state: dns_ptr serializado")
     check(d["http_headers"]["80"]["server"] == "nginx", "state: http_headers serializado")
+    check(d["ssl_results"]["443"]["tool_used"] == "sslscan", "state: ssl_results serializado")
     check(len(d["vuln_findings"]) == 1, "state: vuln_findings serializado")
     check(d["pcap_evidence"]["packets_captured"] == 4, "state: pcap_evidence serializado")
 
     dev2 = Device.from_dict(d)
     check(dev2.dns_ptr == "mirouter.local", "state: dns_ptr deserializado")
     check(dev2.http_headers["80"]["server"] == "nginx", "state: http_headers deserializado")
+    check(dev2.ssl_results["443"]["tool_used"] == "sslscan", "state: ssl_results deserializado")
     check(dev2.pcap_evidence["packets_captured"] == 4, "state: pcap_evidence deserializado")
 
     schema1_data = {
